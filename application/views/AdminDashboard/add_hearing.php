@@ -94,7 +94,7 @@
                                                         <div class="form-group ">
                                                             <label class="control-label col-md-3">Next Date</label>
                                                             <div class="col-md-6">
-                                                                <input type="date" class="form-control" value="<?php echo date("Y-m-d"); ?>" name="next_hearing_date">
+                                                                <input type="date" class="form-control" value="" name="next_hearing_date">
 
 
                                                             </div>
@@ -206,7 +206,7 @@
                                         <thead>
                                             <tr>
                                                 <th>S.No</th>
-                                                <th>Title</th>
+                                               
                                                 <th>Hearing Date</th>
                                                 <th>Next Date</th>
                                                 <th>Law Officers</th>
@@ -226,7 +226,7 @@
 
                                                 <tr>
                                                     <td><?php echo $i ?></td>
-                                                    <td>Case Hearing</td>
+                                                   
                                                     <td><?= date("d-m-Y", strtotime($hearinginfo->hearing_date)); ?></td>
                                                     <td><?= date("d-m-Y", strtotime($hearinginfo->next_hearing_date)); ?></td>
                                                     <td>

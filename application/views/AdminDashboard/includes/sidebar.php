@@ -44,6 +44,21 @@ if($this->session->userdata('role')==1*1)
 </ul>
 </li>
 
+
+<li>
+<a href="javascript:void(0);" data-toggle="collapse" data-target="#case_category"><div class="pull-left"><i class="icon-layers data-right-rep-icon mr-20"></i><span class="right-nav-text">Case Category</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+<ul id="case_category" class="collapse collapse-level-1">
+<li>
+<a class="active-page" href="<?php echo base_url(); ?>AdminDashboard/add_case_category">Add case Category</a>
+</li>
+<li>
+<a class="active-page" href="<?php echo base_url(); ?>AdminDashboard/list_case_categories">List case Category</a>
+</li>
+
+
+</ul>
+</li>
+
 <li>
 <a href="javascript:void(0);" data-toggle="collapse" data-target="#departments"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Department</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
 <ul id="departments" class="collapse collapse-level-1">
@@ -85,19 +100,7 @@ if($this->session->userdata('role')==1*1)
 </ul>
 </li>
 
-<li>
-<a href="javascript:void(0);" data-toggle="collapse" data-target="#case_category"><div class="pull-left"><i class="icon-layers data-right-rep-icon mr-20"></i><span class="right-nav-text">Case Category</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-<ul id="case_category" class="collapse collapse-level-1">
-<li>
-<a class="active-page" href="<?php echo base_url(); ?>AdminDashboard/add_case_category">Add case Category</a>
-</li>
-<li>
-<a class="active-page" href="<?php echo base_url(); ?>AdminDashboard/list_case_categories">List case Category</a>
-</li>
 
-
-</ul>
-</li>
 
 <li>
 <a href="javascript:void(0);" data-toggle="collapse" data-target="#cases"><div class="pull-left"><i class="icon-layers data-right-rep-icon mr-20"></i><span class="right-nav-text">Cases</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>

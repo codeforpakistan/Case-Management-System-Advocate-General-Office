@@ -74,17 +74,7 @@
 
                           <!--/span-->
                         </div>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label class="control-label col-md-3"></label>
-                              <div class="col-md-6">
-                                <input type="checkbox" onclick="showpassword()"> Show Password
-                              </div>
-                            </div>
-
-                            <!--/span-->
-                          </div>
+                        
 
                           <!-- /Row -->
                           <div class="row">
@@ -99,7 +89,17 @@
                             <!--/span-->
                           </div>
                           <!-- /Row -->
+							<div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label class="control-label col-md-3"></label>
+                              <div class="col-md-6">
+                                <input type="checkbox" onclick="showpassword()"> Show Password
+                              </div>
+                            </div>
 
+                            <!--/span-->
+                          </div>
 
 
 
@@ -108,7 +108,7 @@
                               <div class="form-group">
                                 <label class="control-label col-md-3">Role</label>
                                 <div class="col-md-6">
-                                  <select class="form-control" name="role_id">
+                                  <select class="form-control" name="role_id" onchange="branch_show(this)">
                                     <?php foreach ($list_role as $roleinfo) { ?>
                                       <option value="<?= $roleinfo->id; ?>"><?= $roleinfo->name; ?></option>
                                     <?php } ?>
@@ -136,12 +136,13 @@
                             <!--/span-->
                           </div>
                           <!-- /Row -->
-                          <div class="row">
+                          <div id="branch_id" class="row">
                             <div class="col-md-12">
                               <div class="form-group">
-                                <label class="control-label col-md-3">Branch</label>
+                                <label  class="control-label col-md-3">Branch</label>
                                 <div class="col-md-6">
                                   <select class="form-control" name="branch_id" data-placeholder="Choose a Branch" tabindex="1">
+                                  
                                     <?php foreach ($list_branch as $branchinfo) { ?>
                                       <option value="<?= $branchinfo->id; ?>"><?= $branchinfo->title; ?></option>
                                     <?php } ?>
@@ -236,12 +237,31 @@
     }
 
 
-    function showpassword() {
+    function showpassword() { 
       var x = document.getElementById("pswd");
       if (x.type === "password") {
         x.type = "text";
       } else {
         x.type = "password";
       }
+	  var y = document.getElementById("confirm_pswd");
+      if (y.type === "password") {
+        y.type = "text";
+      } else {
+        y.type = "password";
+      }
     }
+	
+		function branch_show(sel) {
+			
+			if (sel.value == 1) {
+				document.getElementById("branch_id").style.display = 'none';
+			} else {
+				document.getElementById("branch_id").style.display = 'block';
+			}
+
+		}
+	
+	
+	
   </script>

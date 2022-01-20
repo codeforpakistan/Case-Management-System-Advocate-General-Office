@@ -86,20 +86,20 @@
                                                         <div class="form-group ">
                                                             <label class="control-label col-md-3">Document Name</label>
                                                             <div class="col-md-6">
-                                                                <select required class="form-control" name="docsname">
+                            <select required class="form-control" name="docsname">
 
 
-                                                                    <!--<option value="Judgement">Judgement</option>-->
-                                                                    <option value="">--Select--</option>
-                                                                    <option value="Order Sheet">Order Sheet</option>
-                                                                    <option value="Comments / Reply">Comments / Reply</option>
-                                                                    <option value="CMs/Rejoinder">CMs/Rejoinder</option>
-                                                                    <option value="WP File">WP File</option>
+                                <!--<option value="Judgement">Judgement</option>-->
+                                <option value="">--Select--</option>
+                                
+                                <option value="Comments / Reply">Comments / Reply</option>
+                                <option value="CMs/Rejoinder">CMs/Rejoinder</option>
+                                <option value="WP File">WP File</option>
+								<option value="Other Documents">Other Documents</option>
 
 
 
-
-                                                                </select>
+                            </select>
                                                             </div>
                                                         </div>
                                                     </div>

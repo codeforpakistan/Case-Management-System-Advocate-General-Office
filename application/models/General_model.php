@@ -360,7 +360,7 @@ class General_model extends CI_Model
 		} else if (!empty($end_date)) {
 			$this->db->or_where('manage_cases.Filling_date <=', $end_date);
 		}
-		// $this->db->group_by('case_department.department_id');
+		$this->db->group_by('manage_cases.id');
 		$query = $this->db->get('manage_cases');
 		return $query->result();
 	}
