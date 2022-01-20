@@ -80,7 +80,7 @@ $db['default'] = array(
 	'password' => '',
 	'database' => 'case_management',
 	'dbdriver' => 'mysqli',
-	'port' => '3306',
+	'port' => '3308',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
