@@ -74,10 +74,10 @@
                                                     <td><?= $case_categories->description; ?></td>
                                                     <td class="text-navy">
                                                         <a href='<?php echo base_url(); ?>AdminDashboard/edit_case_category/<?= $case_categories->id; ?>'>
-                                                            <i class="fa fa-edit"></i>
+                                                            <i class=" btn btn-success btn-anim  btn-xs fa fa-edit"></i>
                                                         </a>
                                                         <a onclick="return confirm('Sure to Delete...?')" href="<?php echo base_url(); ?>AdminDashboard/delete_case_categories/<?= $case_categories->id; ?>">
-                                                            <i class="fa fa-trash" style="color:red;"></i></a>
+                                                            <i class=" btn btn-danger btn-anim  btn-xs fa fa-trash"></i></a>
                                                     </td>
 
                                                 </tr>
