@@ -129,6 +129,7 @@ class AdminDashboard extends CI_Controller
 
 	public function deleteusers()
 	{
+
 		$data['role_name'] = $this->General_model->GetRoleName();
 		if ($this->session->userdata('role') == 1 * 1) {
 			$recordid = $this->uri->segment(3);
@@ -1128,6 +1129,7 @@ class AdminDashboard extends CI_Controller
 
 	public function add_case_category()
 	{
+
 		$data['role_name'] = $this->General_model->GetRoleName();
 		if ($this->session->userdata('role') == 1 * 1) {
 			$tblname = "branch";
@@ -1205,13 +1207,20 @@ class AdminDashboard extends CI_Controller
 	public function edit_branch()
 	{
 		$data['role_name'] = $this->General_model->GetRoleName();
-		$tblname = "branch";
-		$recordid = $this->uri->segment(3);
-		$data['getbranch'] = $this->General_model->getSelectedData($tblname, $recordid);
-		$data['page'] = 'AdminDashboard/edit_branch';
-		$this->load->view('AdminDashboard/includes/header');
-		$this->load->view('AdminDashboard/includes/template_view', $data);
-		$this->load->view('AdminDashboard/includes/footer');
+		if ($this->session->userdata('role') == 1 * 1) {
+
+			$data['role_name'] = $this->General_model->GetRoleName();
+			$tblname = "branch";
+			$recordid = $this->uri->segment(3);
+			$data['getbranch'] = $this->General_model->getSelectedData($tblname, $recordid);
+			$data['page'] = 'AdminDashboard/edit_branch';
+			$this->load->view('AdminDashboard/includes/header');
+			$this->load->view('AdminDashboard/includes/template_view', $data);
+			$this->load->view('AdminDashboard/includes/footer');
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
 	}
 
 
@@ -1219,14 +1228,21 @@ class AdminDashboard extends CI_Controller
 	public function update_branches()
 	{
 		$data['role_name'] = $this->General_model->GetRoleName();
-		$tblname = "branch";
-		$formArray = array();
-		$branchid = $this->input->post("branchid");
-		$formArray['title'] = $this->input->post("title");
-		$formArray['description']  = $this->input->post("description");
-		$this->General_model->update_data($tblname, $formArray, $branchid);
-		$this->session->set_flashdata('success', "Record Updated Successfully.");
-		redirect(base_url('AdminDashboard/list_branch'));
+		if ($this->session->userdata('role') == 1 * 1) {
+
+			$data['role_name'] = $this->General_model->GetRoleName();
+			$tblname = "branch";
+			$formArray = array();
+			$branchid = $this->input->post("branchid");
+			$formArray['title'] = $this->input->post("title");
+			$formArray['description']  = $this->input->post("description");
+			$this->General_model->update_data($tblname, $formArray, $branchid);
+			$this->session->set_flashdata('success', "Record Updated Successfully.");
+			redirect(base_url('AdminDashboard/list_branch'));
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
 	}
 
 
@@ -1234,13 +1250,20 @@ class AdminDashboard extends CI_Controller
 	public function edit_department()
 	{
 		$data['role_name'] = $this->General_model->GetRoleName();
-		$tblname = "department";
-		$recordid = $this->uri->segment(3);
-		$data['getdept'] = $this->General_model->getSelectedData($tblname, $recordid);
-		$data['page'] = 'AdminDashboard/edit_department';
-		$this->load->view('AdminDashboard/includes/header');
-		$this->load->view('AdminDashboard/includes/template_view', $data);
-		$this->load->view('AdminDashboard/includes/footer');
+		if ($this->session->userdata('role') == 1 * 1) {
+
+			$data['role_name'] = $this->General_model->GetRoleName();
+			$tblname = "department";
+			$recordid = $this->uri->segment(3);
+			$data['getdept'] = $this->General_model->getSelectedData($tblname, $recordid);
+			$data['page'] = 'AdminDashboard/edit_department';
+			$this->load->view('AdminDashboard/includes/header');
+			$this->load->view('AdminDashboard/includes/template_view', $data);
+			$this->load->view('AdminDashboard/includes/footer');
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
 	}
 
 
@@ -1248,14 +1271,21 @@ class AdminDashboard extends CI_Controller
 	public function update_department()
 	{
 		$data['role_name'] = $this->General_model->GetRoleName();
-		$tblname = "department";
-		$formArray = array();
-		$deptid = $this->input->post("deptid");
-		$formArray['title'] = $this->input->post("title");
-		$formArray['description']  = $this->input->post("description");
-		$this->General_model->update_data($tblname, $formArray, $deptid);
-		$this->session->set_flashdata('success', "Record Updated Successfully.");
-		redirect(base_url('AdminDashboard/list_department'));
+		if ($this->session->userdata('role') == 1 * 1) {
+
+			$data['role_name'] = $this->General_model->GetRoleName();
+			$tblname = "department";
+			$formArray = array();
+			$deptid = $this->input->post("deptid");
+			$formArray['title'] = $this->input->post("title");
+			$formArray['description']  = $this->input->post("description");
+			$this->General_model->update_data($tblname, $formArray, $deptid);
+			$this->session->set_flashdata('success', "Record Updated Successfully.");
+			redirect(base_url('AdminDashboard/list_department'));
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
 	}
 
 
@@ -1264,13 +1294,20 @@ class AdminDashboard extends CI_Controller
 	public function edit_court()
 	{
 		$data['role_name'] = $this->General_model->GetRoleName();
-		$tblname = "court";
-		$recordid = $this->uri->segment(3);
-		$data['getcourt'] = $this->General_model->getSelectedData($tblname, $recordid);
-		$data['page'] = 'AdminDashboard/edit_court';
-		$this->load->view('AdminDashboard/includes/header');
-		$this->load->view('AdminDashboard/includes/template_view', $data);
-		$this->load->view('AdminDashboard/includes/footer');
+		if ($this->session->userdata('role') == 1 * 1) {
+
+			$data['role_name'] = $this->General_model->GetRoleName();
+			$tblname = "court";
+			$recordid = $this->uri->segment(3);
+			$data['getcourt'] = $this->General_model->getSelectedData($tblname, $recordid);
+			$data['page'] = 'AdminDashboard/edit_court';
+			$this->load->view('AdminDashboard/includes/header');
+			$this->load->view('AdminDashboard/includes/template_view', $data);
+			$this->load->view('AdminDashboard/includes/footer');
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
 	}
 
 
@@ -1279,14 +1316,21 @@ class AdminDashboard extends CI_Controller
 	public function update_courts()
 	{
 		$data['role_name'] = $this->General_model->GetRoleName();
-		$tblname = "court";
-		$formArray = array();
-		$courtid = $this->input->post("courtid");
-		$formArray['title'] = $this->input->post("title");
-		$formArray['description']  = $this->input->post("description");
-		$this->General_model->update_data($tblname, $formArray, $courtid);
-		$this->session->set_flashdata('success', "Record Updated Successfully.");
-		redirect(base_url('AdminDashboard/list_court'));
+		if ($this->session->userdata('role') == 1 * 1) {
+
+			$data['role_name'] = $this->General_model->GetRoleName();
+			$tblname = "court";
+			$formArray = array();
+			$courtid = $this->input->post("courtid");
+			$formArray['title'] = $this->input->post("title");
+			$formArray['description']  = $this->input->post("description");
+			$this->General_model->update_data($tblname, $formArray, $courtid);
+			$this->session->set_flashdata('success', "Record Updated Successfully.");
+			redirect(base_url('AdminDashboard/list_court'));
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
 	}
 
 
@@ -1295,13 +1339,20 @@ class AdminDashboard extends CI_Controller
 	public function edit_decision_type()
 	{
 		$data['role_name'] = $this->General_model->GetRoleName();
-		$tblname = "decision_types";
-		$recordid = $this->uri->segment(3);
-		$data['getdecision'] = $this->General_model->getSelectedData($tblname, $recordid);
-		$data['page'] = 'AdminDashboard/edit_decision_type';
-		$this->load->view('AdminDashboard/includes/header');
-		$this->load->view('AdminDashboard/includes/template_view', $data);
-		$this->load->view('AdminDashboard/includes/footer');
+		if ($this->session->userdata('role') == 1 * 1) {
+
+			$data['role_name'] = $this->General_model->GetRoleName();
+			$tblname = "decision_types";
+			$recordid = $this->uri->segment(3);
+			$data['getdecision'] = $this->General_model->getSelectedData($tblname, $recordid);
+			$data['page'] = 'AdminDashboard/edit_decision_type';
+			$this->load->view('AdminDashboard/includes/header');
+			$this->load->view('AdminDashboard/includes/template_view', $data);
+			$this->load->view('AdminDashboard/includes/footer');
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
 	}
 
 
@@ -1309,14 +1360,21 @@ class AdminDashboard extends CI_Controller
 	public function update_Decision_type()
 	{
 		$data['role_name'] = $this->General_model->GetRoleName();
-		$tblname = "decision_types";
-		$formArray = array();
-		$decisionid = $this->input->post("decisionid");
-		$formArray['title'] = $this->input->post("title");
-		$formArray['description']  = $this->input->post("description");
-		$this->General_model->update_data($tblname, $formArray, $decisionid);
-		$this->session->set_flashdata('success', "Record Updated Successfully.");
-		redirect(base_url('AdminDashboard/list_decision_type'));
+		if ($this->session->userdata('role') == 1 * 1) {
+
+			$data['role_name'] = $this->General_model->GetRoleName();
+			$tblname = "decision_types";
+			$formArray = array();
+			$decisionid = $this->input->post("decisionid");
+			$formArray['title'] = $this->input->post("title");
+			$formArray['description']  = $this->input->post("description");
+			$this->General_model->update_data($tblname, $formArray, $decisionid);
+			$this->session->set_flashdata('success', "Record Updated Successfully.");
+			redirect(base_url('AdminDashboard/list_decision_type'));
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
 	}
 
 
@@ -1326,33 +1384,46 @@ class AdminDashboard extends CI_Controller
 
 	public function edit_case_category()
 	{
-		$tblname = "branch";
-		$data['branches'] = $this->General_model->get_alldata($tblname);
 		$data['role_name'] = $this->General_model->GetRoleName();
-		$tblnames = "case_categories";
-		$recordid = $this->uri->segment(3);
-		$data['getCasecategory'] = $this->General_model->getSelectedData($tblnames, $recordid);
-		$data['page'] = 'AdminDashboard/edit_case_category';
-		$this->load->view('AdminDashboard/includes/header');
-		$this->load->view('AdminDashboard/includes/template_view', $data);
-		$this->load->view('AdminDashboard/includes/footer');
+		if ($this->session->userdata('role') == 1 * 1) {
+
+			$tblname = "branch";
+			$data['branches'] = $this->General_model->get_alldata($tblname);
+			$data['role_name'] = $this->General_model->GetRoleName();
+			$tblnames = "case_categories";
+			$recordid = $this->uri->segment(3);
+			$data['getCasecategory'] = $this->General_model->getSelectedData($tblnames, $recordid);
+			$data['page'] = 'AdminDashboard/edit_case_category';
+			$this->load->view('AdminDashboard/includes/header');
+			$this->load->view('AdminDashboard/includes/template_view', $data);
+			$this->load->view('AdminDashboard/includes/footer');
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
 	}
 
 
 	public function update_case_categories()
 	{
 		$data['role_name'] = $this->General_model->GetRoleName();
-		$tblname = "case_categories";
-		$formArray = array();
+		if ($this->session->userdata('role') == 1 * 1) {
+			$data['role_name'] = $this->General_model->GetRoleName();
+			$tblname = "case_categories";
+			$formArray = array();
 
-		$casecatid = $this->input->post("casecatid");
-		$formArray['branch_id'] = $this->input->post("branch_id");
-		$formArray['title'] = $this->input->post("title");
-		$formArray['description']  = $this->input->post("description");
+			$casecatid = $this->input->post("casecatid");
+			$formArray['branch_id'] = $this->input->post("branch_id");
+			$formArray['title'] = $this->input->post("title");
+			$formArray['description']  = $this->input->post("description");
 
-		$this->General_model->update_data($tblname, $formArray, $casecatid);
-		$this->session->set_flashdata('success', "Record Updated Successfully.");
-		redirect(base_url('AdminDashboard/list_case_categories'));
+			$this->General_model->update_data($tblname, $formArray, $casecatid);
+			$this->session->set_flashdata('success', "Record Updated Successfully.");
+			redirect(base_url('AdminDashboard/list_case_categories'));
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
 	}
 
 
@@ -1360,48 +1431,57 @@ class AdminDashboard extends CI_Controller
 
 	public function edit_user()
 	{
-
-		$tblname1 = "role";
-		$data['list_role'] = $this->General_model->get_alldata($tblname1);
-
-		$tblname2 = "branch";
-		$data['list_branch'] = $this->General_model->get_alldata($tblname2);
-
-		$tblname = "users";
 		$data['role_name'] = $this->General_model->GetRoleName();
-		$recordid = $this->uri->segment(3);
-		$data['getUserdata'] = $this->General_model->getSelectedData($tblname, $recordid);
-		$data['page'] = 'AdminDashboard/edit_user';
-		$this->load->view('AdminDashboard/includes/header');
-		$this->load->view('AdminDashboard/includes/template_view', $data);
-		$this->load->view('AdminDashboard/includes/footer');
+		if ($this->session->userdata('role') == 1 * 1) {
+			$tblname1 = "role";
+			$data['list_role'] = $this->General_model->get_alldata($tblname1);
+
+			$tblname2 = "branch";
+			$data['list_branch'] = $this->General_model->get_alldata($tblname2);
+
+			$tblname = "users";
+			$data['role_name'] = $this->General_model->GetRoleName();
+			$recordid = $this->uri->segment(3);
+			$data['getUserdata'] = $this->General_model->getSelectedData($tblname, $recordid);
+			$data['page'] = 'AdminDashboard/edit_user';
+			$this->load->view('AdminDashboard/includes/header');
+			$this->load->view('AdminDashboard/includes/template_view', $data);
+			$this->load->view('AdminDashboard/includes/footer');
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
 	}
 
 
 	public function update_users()
 	{
 		$data['role_name'] = $this->General_model->GetRoleName();
+		if ($this->session->userdata('role') == 1 * 1) {
+			$data['role_name'] = $this->General_model->GetRoleName();
 
-		$tblname = "users";
-		$usersid = $this->input->post("usersid");
-		$formArray = array();
-		$formArray['name'] = $this->input->post("name");
-		$formArray['email']  = $this->input->post("email");
-		$formArray['password']  = md5($this->input->post("password"));
-		$formArray['role_id']  = $this->input->post("role_id");
-		$formArray['status']  = $this->input->post("status");
-		$formArray['branch_id']  = $this->input->post("branch_id");
+			$tblname = "users";
+			$usersid = $this->input->post("usersid");
+			$formArray = array();
+			$formArray['name'] = $this->input->post("name");
+			$formArray['email']  = $this->input->post("email");
+			$formArray['password']  = md5($this->input->post("password"));
+			$formArray['role_id']  = $this->input->post("role_id");
+			$formArray['status']  = $this->input->post("status");
+			$formArray['branch_id']  = $this->input->post("branch_id");
 
-		$this->General_model->update_data($tblname, $formArray, $usersid);
-		$this->session->set_flashdata('success', "Record Updated Successfully.");
-		redirect(base_url('AdminDashboard/list_user'));
+			$this->General_model->update_data($tblname, $formArray, $usersid);
+			$this->session->set_flashdata('success', "Record Updated Successfully.");
+			redirect(base_url('AdminDashboard/list_user'));
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
 	}
 
 
 	public function edit_case()
 	{
-
-
 		$recordid = $this->uri->segment(3);
 
 		$branch_id = $this->session->userdata('branch_id');

@@ -31,8 +31,7 @@
 
 
 		<?php
-		$error = $this->session->flashdata('error');
-		$success = $this->session->flashdata('success');
+
 		if (isset($success)) {
 		?>
 			<div class="alert alert-success alert-dismissible">
@@ -104,22 +103,42 @@
 															<div class="form-group ">
 																<label class="control-label col-md-3">Select Branch</label>
 																<div class="col-md-6">
-																	<select required class="form-control" name="branch_id">
+																	<select required class="form-control" name="branch_id" onchange="select_cat(this);" id="branch_id">
 																		<option value="">--Select--</option>
 																		<?php foreach ($getbranches as $branch_info) { ?>
 																			<option value="<?= $branch_info->id; ?>"><?= $branch_info->title; ?></option>
 																		<?php } ?>
 
 																	</select>
+
 																	<!-- <span class="help-block">Select Role For User</span>  -->
 																</div>
 															</div>
 														</div>
+
+
 														<!--/span-->
 													</div>
 												<?php
 												} else { ?>
-													<input type="hidden" name="branch_id" value="<?php echo $this->session->userdata('branch_id'); ?>">
+													<script>
+														window.onload = function select_cat1() {
+															var value = "<?= $this->session->userdata('branch_id') ?>";
+															if (value) {
+																$('#case_cateid').find('option').each(function() {
+																	if ($(this).attr('val') != value) {
+																		$(this).hide();
+																	} else {
+
+
+																		$(this).show();
+																	}
+
+																});
+															}
+														}
+													</script>
+													<input type="hidden" name="branch_id" onload="select_cat1()" value="<?php echo $this->session->userdata('branch_id'); ?>">
 												<?php
 												}
 												?>
@@ -133,7 +152,7 @@
 																<select required class="form-control" onchange="change_label(this);" name="case_cateid" id="case_cateid">
 																	<option value="">--Select--</option>
 																	<?php foreach ($getCategories as $cate_info) { ?>
-																		<option value="<?= $cate_info->id; ?>"><?= $cate_info->title; ?></option>
+																		<option val="<?= $cate_info->branch_id; ?>" value="<?= $cate_info->id; ?>"><?= $cate_info->title; ?></option>
 																	<?php } ?>
 
 																</select>
@@ -365,71 +384,36 @@
 														</div>
 													</div>
 													<!--/span-->
-												</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-												<div class="row">
-													<div class="col-md-12">
-														<div class="form-group">
-															<label class="control-label col-md-3">Case Filing Date</label>
-															<div class="col-md-6">
-																<input type="date" class="form-control" name="Filling_date" value="<?php echo date("Y-m-d"); ?>" placeholder="">
-																<!-- <span class="help-block"> This is inline help </span>  -->
+													<div class="row">
+														<div class="col-md-12">
+															<div class="form-group">
+																<label class="control-label col-md-3">Case Filing Date</label>
+																<div class="col-md-6">
+																	<input type="date" class="form-control" name="Filling_date" value="<?php echo date("Y-m-d"); ?>" placeholder="">
+																	<!-- <span class="help-block"> This is inline help </span>  -->
+																</div>
 															</div>
 														</div>
+														<!--/span-->
 													</div>
-													<!--/span-->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-													<!--/span-->
 												</div>
 
-											</div>
+												<div class="col-md-12">
+													<div class="form-group ">
+														<label class="control-label col-md-3">Government is Petitioner</label>
+														<div class="col-md-6">
+															<input type="checkbox" name="government_petitioner" value="Yes">
 
-											<div class="col-md-12">
-												<div class="form-group ">
-													<label class="control-label col-md-3">Government is Petitioner</label>
-													<div class="col-md-6">
-														<input type="checkbox" name="government_petitioner" value="Yes">
-
+														</div>
 													</div>
 												</div>
-											</div>
 
 
 
-											<!--<div  class="col-md-12">
+												<!--<div  class="col-md-12">
 <div id="link_case" class="form-group">
 <label class="control-label col-md-3">Previous case</label>
 <div class="col-md-6">
@@ -447,18 +431,18 @@ foreach ($getCases as $case_info) { ?>
 </div>-->
 
 
-											<div class="form-actions mt-10">
-												<div class="row">
-													<div class="col-md-12">
-														<div class="row">
-															<div class="col-md-offset-3 col-md-9">
-																<button type="submit" class="btn btn-success  mr-10">Submit</button>
+												<div class="form-actions mt-10">
+													<div class="row">
+														<div class="col-md-12">
+															<div class="row">
+																<div class="col-md-offset-3 col-md-9">
+																	<button type="submit" class="btn btn-success  mr-10">Submit</button>
+																</div>
 															</div>
 														</div>
+														<div class="col-md-6"> </div>
 													</div>
-													<div class="col-md-6"> </div>
 												</div>
-											</div>
 										</form>
 									</div>
 								</div>
@@ -489,6 +473,34 @@ foreach ($getCases as $case_info) { ?>
 			} else {
 				document.getElementById("main_wp_case_no").style.display = 'block';
 			}
+
+		}
+
+
+
+		function select_cat(elem) {
+			var value = elem.value;
+
+			alert(value);
+
+
+
+			if (value) {
+
+
+				$('#case_cateid').find('option').each(function() {
+					if ($(this).attr('val') != value) {
+						$(this).hide();
+					} else {
+
+
+						$(this).show();
+					}
+
+				});
+			}
+
+
 
 		}
 	</script>
