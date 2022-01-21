@@ -128,6 +128,7 @@
 																$('#case_cateid').find('option').each(function() {
 																	if ($(this).attr('val') != value) {
 																		$(this).hide();
+
 																	} else {
 
 
@@ -138,7 +139,7 @@
 															}
 														}
 													</script>
-													<input type="hidden" name="branch_id" onload="select_cat1()" value="<?php echo $this->session->userdata('branch_id'); ?>">
+													<input type="hidden" name="branch_id" value="<?php echo $this->session->userdata('branch_id'); ?>">
 												<?php
 												}
 												?>
@@ -150,7 +151,7 @@
 															<div class="col-md-6">
 
 																<select required class="form-control" onchange="change_label(this);" name="case_cateid" id="case_cateid">
-																	<option value="">--Select--</option>
+																	<option id="opt" value="">--Select--</option>
 																	<?php foreach ($getCategories as $cate_info) { ?>
 																		<option val="<?= $cate_info->branch_id; ?>" value="<?= $cate_info->id; ?>"><?= $cate_info->title; ?></option>
 																	<?php } ?>
@@ -480,11 +481,6 @@ foreach ($getCases as $case_info) { ?>
 
 		function select_cat(elem) {
 			var value = elem.value;
-
-			alert(value);
-
-
-
 			if (value) {
 
 

@@ -47,24 +47,48 @@
 										<form action="<?php echo base_url(); ?>AdminDashboard/update_cases/" method="post" class="form-horizontal">
 											<div class="form-body">
 
+												<?php if ($this->session->userdata('role') == 1 * 1) {
+												?>
+													<div class="row">
+														<div class="col-md-12">
+															<div class="form-group ">
+																<label class="control-label col-md-3">Select Branch</label>
+																<div class="col-md-6">
+																	<select required class="form-control" name="branch_id" onchange="select_cat(this);" id="branch_id">
+																		<?php foreach ($getbranches as $branch_info) { ?>
+																			<option value="<?= $branch_info->id; ?>" <?php if ($getCasedata[0]->branch_id == $branch_info->id) echo "Selected"; ?>><?= $branch_info->title; ?></option>
+																		<?php } ?>
 
-												<div class="row">
-													<div class="col-md-12">
-														<div class="form-group ">
-															<label class="control-label col-md-3">Select Branch</label>
-															<div class="col-md-6">
-																<select required class="form-control" name="branch_id">
-																	<?php foreach ($getbranches as $branch_info) { ?>
-																		<option value="<?= $branch_info->id; ?>" <?php if ($getCasedata[0]->branch_id == $branch_info->id) echo "Selected"; ?>><?= $branch_info->title; ?></option>
-																	<?php } ?>
-
-																</select>
-																<!-- <span class="help-block">Select Role For User</span>  -->
+																	</select>
+																	<!-- <span class="help-block">Select Role For User</span>  -->
+																</div>
 															</div>
 														</div>
+														<!--/span-->
 													</div>
-													<!--/span-->
-												</div>
+												<?php
+												} else { ?>
+													<script>
+														window.onload = function select_cat1() {
+															var value = "<?= $this->session->userdata('branch_id') ?>";
+															if (value) {
+																$('#case_cateid').find('option').each(function() {
+																	if ($(this).attr('val') != value) {
+																		$(this).hide();
+																	} else {
+
+
+																		$(this).show();
+																	}
+
+																});
+															}
+														}
+													</script>
+													<input type="hidden" name="branch_id" value="<?php echo $this->session->userdata('branch_id'); ?>">
+												<?php
+												}
+												?>
 
 
 
@@ -460,6 +484,27 @@ foreach ($getCases as $case_info) { ?>
 			} else {
 				document.getElementById("main_wp_case_no").style.display = 'block';
 			}
+
+		}
+
+		function select_cat(elem) {
+			var value = elem.value;
+			if (value) {
+
+
+				$('#case_cateid').find('option').each(function() {
+					if ($(this).attr('val') != value) {
+						$(this).hide();
+					} else {
+
+
+						$(this).show();
+					}
+
+				});
+			}
+
+
 
 		}
 	</script>
