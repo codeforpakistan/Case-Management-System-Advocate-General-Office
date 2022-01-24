@@ -230,8 +230,22 @@
       }
     } else {
       ?>
+      
+      <div class="row heading-bg">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h5 class="txt-dark">
+				<?php
+				$get_branch_name = $this->db->select('*')->from('branch')->where('id', $branch_id)->get();
+                            echo $get_branch_name->row('title');
+				 ?>
+				
+				</h5>
+            </div>
+        </div>
+      
+      
 
-      <div class="row">
+      <!--<div class="row">
         <div class="col-lg-12">
           <div class="panel panel-default card-view pa-0" style="background:#2ecd99;">
             <div class="panel-wrapper collapse in">
@@ -266,7 +280,7 @@
             </a>
           </div>
         </div>
-      </div>
+      </div>-->
 
       <div class="row">
 
@@ -278,6 +292,46 @@
         $querygetCategories = $querycats->result();
         foreach ($querygetCategories as $getCategories) {
         ?>
+        
+        
+        
+        
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+            <div class="panel panel-default card-view pa-0">
+              <div class="panel-wrapper collapse in">
+                <a href="">
+                  <div class="panel-body pa-0">
+                    <div class="sm-data-box">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-xs-9 text-center pl-0 pr-0 data-wrap-left">
+                            <span class="txt-dark block counter"><span class="counter-anim">
+                                <?php
+                              $this->db->select("*");
+                              $this->db->from("manage_cases");
+                              $this->db->where("branch_id", $branch_id);
+                              $this->db->order_by('id', "DESC");
+                              echo $getbranchCount = $this->db->get()->num_rows();
+                              ?>
+                              </span></span>
+                            <span class="weight-500 uppercase-font block ">Total Cases</span>
+                          </div>
+                          <div class="col-xs-3 text-center  pl-0 pr-0 data-wrap-right">
+                            <i class="icon-layers data-right-rep-icon txt-light-grey"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              </a>
+            </div>
+          </div>
+        
+        
+        
+        
+        
 
           <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
             <div class="panel panel-default card-view pa-0">

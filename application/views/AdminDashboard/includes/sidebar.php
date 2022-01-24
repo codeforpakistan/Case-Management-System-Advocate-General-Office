@@ -194,4 +194,84 @@ if($this->session->userdata('role')==1*3)
 }
 ?>
 
+
+
+
+
+
+
+<?php
+if($this->session->userdata('role')==1*4)
+{
+?>
+<ul class="nav navbar-nav side-nav  nicescroll-bar">
+<li class="navigation-header">
+<span>Main</span> 
+<i class="zmdi zmdi-more"></i>
+</li>
+
+
+<li>
+<a class="active" href="<?php echo base_url(); ?>AdminDashboard"><div class="pull-left"><i class="zmdi zmdi-flag mr-20"></i><span class="right-nav-text">Home</span></div><div class="clearfix"></div></a>
+</li>
+
+
+<li>
+<a href="<?php echo base_url(); ?>AdminDashboard/search"><div class="pull-left"><i class="zmdi zmdi-search data-right-rep-icon mr-20"></i><span class="right-nav-text">Search</span></div><div class="clearfix"></div></a>
+
+</li>
+
+
+<!--
+<li>
+<a href="javascript:void(0);" data-toggle="collapse" data-target="#cases"><div class="pull-left"><i class="icon-layers data-right-rep-icon mr-20"></i><span class="right-nav-text">Cases</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+<ul id="cases" class="collapse collapse-level-1">
+<li>
+<a class="active-page" href="<?php echo base_url(); ?>AdminDashboard/add_case">Add Case</a>
+</li>
+<li>
+<a class="active-page" href="<?php echo base_url(); ?>AdminDashboard/list_case">List Case</a>
+</li>
+
+<li>
+<a class="active-page" href="<?php echo base_url(); ?>AdminDashboard/add_hearing">Add Hearing</a>
+</li>
+
+<li>
+<a class="active-page" href="<?php echo base_url(); ?>AdminDashboard/case_view">Case view</a>
+</li>
+
+<li>
+<a class="active-page" href="<?php echo base_url(); ?>AdminDashboard/link_case">Link Case</a>
+</li>
+-->
+
+
+
+</ul>
+</li>
+
+</ul>
+
+<?php
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- ////////////////////////Side Bar for IT staff    -->

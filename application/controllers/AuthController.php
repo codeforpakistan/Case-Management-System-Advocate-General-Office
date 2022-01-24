@@ -47,6 +47,9 @@ class AuthController extends CI_Controller
 			if ($result->role_id == '3') {
 				redirect('AdminDashboard/index');
 			}
+			if ($result->role_id == '4') {
+				redirect('AdminDashboard/index');
+			}
 		} else {
 			$data['button'] = "Log In";
 			$data['action'] = "user_login";
