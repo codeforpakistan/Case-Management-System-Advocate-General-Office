@@ -1735,35 +1735,21 @@ class AdminDashboard extends CI_Controller
 
 
 	}
-	
-	
-	
+
+
+
 	public function fetch_caseCategories()
 	{
-			$branch_id = $this->input->post("branch_id");
-			
-			$this->db->where('branch_id', $branch_id);
-			$this->db->order_by('id','DESC');
-			$query = $this->db->get('case_categories');
-			//echo $this->db->last_query();
-			$output = '<option value="">--Select--</option>';
-			foreach($query->result() as $row)
-			{
-			$output .= '<option value="'.$row->id.'">'.$row->title.'</option>';
-			}
-			echo $output; 
-			
-			
-			
+		$branch_id = $this->input->post("branch_id");
+
+		$this->db->where('branch_id', $branch_id);
+		$this->db->order_by('id', 'DESC');
+		$query = $this->db->get('case_categories');
+		//echo $this->db->last_query();
+		$output = '<option value="">--Select--</option>';
+		foreach ($query->result() as $row) {
+			$output .= '<option value="' . $row->id . '">' . $row->title . '</option>';
+		}
+		echo $output;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

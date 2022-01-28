@@ -1,6 +1,6 @@
 <!-- Main Content -->
-<div class="page-wrapper">
-    <div class="container-fluid">
+<div class="page-wrapper clearfix">
+    <div class="container-fluid pt-25 " style="width:85%; float:right;">
 
         <br />
 
@@ -97,3 +97,5 @@
         </div>
         <!-- /Row -->
     </div>
+
+    <?php $this->load->view('AdminDashboard/includes/base_footer') ?>

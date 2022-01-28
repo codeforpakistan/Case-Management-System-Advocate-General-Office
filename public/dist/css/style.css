@@ -2267,7 +2267,7 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
         background: rgba(33, 33, 33, 0.05); }
         .fixed-sidebar-left .side-nav li a[aria-expanded="true"] > i {
           color: #e2724c; }
-        .fixed-sidebar-left .side-nav li a[aria-expanded="true"] .pull-right i:before {
+        .fixed-sidebar-left .side-nav li a[aria-expanded="true"] .pull- i:before {
           content: '\f2f8'; }
       .fixed-sidebar-left .side-nav li a {
         width: 100%;

@@ -1,6 +1,6 @@
 <!-- Main Content -->
-<div class="page-wrapper">
-    <div class="container-fluid">
+<div class="page-wrapper clearfix">
+    <div class="container-fluid pt-25 " style="width:85%; float:right;">
 
         <!-- Title -->
         <div class="row heading-bg">
@@ -206,7 +206,7 @@
                                         <thead>
                                             <tr>
                                                 <th>S.No</th>
-                                               
+
                                                 <th>Hearing Date</th>
                                                 <th>Next Date</th>
                                                 <th>Law Officers</th>
@@ -226,7 +226,7 @@
 
                                                 <tr>
                                                     <td><?php echo $i ?></td>
-                                                   
+
                                                     <td><?= date("d-m-Y", strtotime($hearinginfo->hearing_date)); ?></td>
                                                     <td><?= date("d-m-Y", strtotime($hearinginfo->next_hearing_date)); ?></td>
                                                     <td>
@@ -274,3 +274,4 @@
 
 
     <!-- /Main Content -->
+    <?php $this->load->view('AdminDashboard/includes/base_footer') ?>

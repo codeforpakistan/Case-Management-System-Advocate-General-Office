@@ -174,7 +174,7 @@ var flintstone = function(){
 	});
 	
 
-	$(document).on("mouseenter mouseleave",".wrapper > .fixed-sidebar-left", function(e) {
+	$(document).on("load",".wrapper > .fixed-sidebar-left", function(e) {
 		if (e.type == "mouseenter") {
 			$wrapper.addClass("sidebar-hover"); 
 		}
