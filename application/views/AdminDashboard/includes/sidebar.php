@@ -44,23 +44,22 @@ if ($this->session->userdata('role') == 1 * 1) {
 <?php
 if ($this->session->userdata('role') == 1 * 3) {
 ?>
-    <ul class="nav navbar-nav side-nav  nicescroll-bar">
-        <li class="navigation-header">
-            <span>Main</span>
-            <i class="zmdi zmdi-more"></i>
-        </li>
-        <li>
-            <a class="active" href="<?php echo base_url(); ?>AdminDashboard">Home </a>
-        </li>
-        <li>
-            <a href="<?php echo base_url(); ?>AdminDashboard/search">Search</a>
-        </li>
-        <li>
-            <a class="" href="<?php echo base_url(); ?>AdminDashboard/list_case">Case</a>
-        </li>
 
-    </ul>
+    <div class="w3-sidebar bg-dark w3-bar-block" style="width:15%; margin-top:5%;">
+        <ul>
+            <br>
+            <li>
+                <a class="w3-bar-item w3-button" href="<?php echo base_url(); ?>AdminDashboard">Home </a>
+            </li>
+            <li>
+                <a class="w3-bar-item w3-button" href="<?php echo base_url(); ?>AdminDashboard/search">Search</a>
+            </li>
+            <li>
+                <a class="w3-bar-item w3-button" class="" href="<?php echo base_url(); ?>AdminDashboard/list_case">Case</a>
+            </li>
 
+        </ul>
+    </div>
 <?php
 }
 ?>
@@ -74,18 +73,17 @@ if ($this->session->userdata('role') == 1 * 3) {
 <?php
 if ($this->session->userdata('role') == 1 * 4) {
 ?>
-    <ul class="nav navbar-nav side-nav  nicescroll-bar">
-        <li class="navigation-header">
-            <span>Main</span>
-            <i class="zmdi zmdi-more"></i>
-        </li>
-        <li>
-            <a class="active" href="<?php echo base_url(); ?>AdminDashboard">Home </a>
-        </li>
-        <li>
-            <a href="<?php echo base_url(); ?>AdminDashboard/search">Search</a>
-        </li>
-    </ul>
+    <div class="w3-sidebar bg-dark w3-bar-block" style="width:15%; margin-top:5%;">
+        <ul>
+            <br>
+            <li>
+                <a class="w3-bar-item w3-button" href="<?php echo base_url(); ?>AdminDashboard">Home </a>
+            </li>
+            <li>
+                <a class="w3-bar-item w3-button" href="<?php echo base_url(); ?>AdminDashboard/search">Search</a>
+            </li>
+        </ul>
+    </div>
 
 <?php
 }

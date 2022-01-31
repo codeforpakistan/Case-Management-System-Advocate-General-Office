@@ -648,6 +648,7 @@ class AdminDashboard extends CI_Controller
 
 	public function submit_add_hearing()
 	{
+
 		$data['role_name'] = $this->General_model->GetRoleName();
 		$caseid = $this->input->post("case_id");
 
@@ -709,7 +710,7 @@ class AdminDashboard extends CI_Controller
 
 
 		$this->session->set_flashdata('success', 'Record Added Successfully..!');
-		redirect(site_url() . 'AdminDashboard/add_hearing/' . $caseid);
+		redirect(site_url() . 'AdminDashboard/case_view/' . $caseid);
 
 		//$data['page']='AdminDashboard/add_documents';
 		//$this->load->view('AdminDashboard/includes/header');
@@ -780,15 +781,23 @@ class AdminDashboard extends CI_Controller
 
 	public function case_view()
 	{
-		$data['role_name'] = $this->General_model->GetRoleName();
 
+		$data['role_name'] = $this->General_model->GetRoleName();
 		$branch_id = $this->session->userdata('branch_id');
 		$branch = $this->General_model->getSelectedData('branch', $branch_id);
 		$data['branch'] = $branch;
 
 
 
+		$tblnames = "decision_types";
+		$data['getDecions'] = $this->General_model->get_alldata($tblnames);
 
+		$tblname = "manage_cases";
+		$caseid = $this->uri->segment(3);
+
+		$data['case_info'] = $this->General_model->getSelectedData($tblname, $caseid);
+		$tblnames = "users";
+		$data['Lawofficers'] = $this->General_model->getLawofficers($tblnames);
 		$caseid = $this->uri->segment(3);
 
 		$tblname = "manage_cases";
@@ -843,6 +852,7 @@ class AdminDashboard extends CI_Controller
 
 	public function submit_decision()
 	{
+		$data['condition'] = 'decision';
 
 		$data['role_name'] = $this->General_model->GetRoleName();
 		$caseid = $this->input->post("case_id");
@@ -881,10 +891,10 @@ class AdminDashboard extends CI_Controller
 		$formArrayUpdate['decision_status'] = 1;
 		$this->General_model->update_data($tblnames, $formArrayUpdate, $caseid);
 
-
+		$case_id = $this->input->post("case_id");
 
 		$this->session->set_flashdata('success', 'Decision Added Successfully..!');
-		redirect(site_url() . 'AdminDashboard/list_case/');
+		redirect(site_url() . 'AdminDashboard/case_view/' . $case_id);
 
 		//$data['page']='AdminDashboard/add_documents';
 		//$this->load->view('AdminDashboard/includes/header');
@@ -1012,7 +1022,7 @@ class AdminDashboard extends CI_Controller
 
 	public function submit_case_documents()
 	{
-
+		$data['condition'] = 'decision';
 		$data['role_name'] = $this->General_model->GetRoleName();
 		$caseid = $this->input->post("case_id");
 
@@ -1043,7 +1053,7 @@ class AdminDashboard extends CI_Controller
 		$this->General_model->add_data($tblname, $formArray);
 
 		$this->session->set_flashdata('success', 'Record Added Successfully..!');
-		redirect(site_url() . 'AdminDashboard/add_case_documents/' . $caseid);
+		redirect(site_url() . 'AdminDashboard/case_view/' . $caseid);
 
 		//$data['page']='AdminDashboard/add_documents';
 		//$this->load->view('AdminDashboard/includes/header');
