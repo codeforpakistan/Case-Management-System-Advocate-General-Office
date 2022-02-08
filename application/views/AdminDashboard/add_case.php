@@ -103,7 +103,7 @@
 															<div class="form-group ">
 																<label class="control-label col-md-3">Select Branch</label>
 																<div class="col-md-6">
-																	<select required class="form-control" name="branch_id" onChange="get_categories();" id="branch_id">
+																	<select required class="branch_id form-control" name="branch_id" onChange="get_categories();" id="branch_id">
 																		<option value="">--Select--</option>
 																		<?php foreach ($getbranches as $branch_info) { ?>
 																			<option value="<?= $branch_info->id; ?>"><?= $branch_info->title; ?></option>
@@ -119,8 +119,12 @@
 
 														<!--/span-->
 													</div>
-												<?php
-												} else { ?>
+													<?php
+												} else {
+													if ($this->session->userdata('role') != 1 * 1) {
+													?>
+														<input id="branch_id1" class="branch_id" type="hidden" name="branch_id" value="<?php echo $this->session->userdata('branch_id'); ?>">
+													<?php } ?>
 													<script>
 														window.onload = function select_cat1() {
 															var branch_id = "<?= $this->session->userdata('branch_id') ?>";
@@ -145,7 +149,7 @@
 
 														}
 													</script>
-													<input id="user_branch_id" type="hidden" name="branch_id" value="<?php echo $this->session->userdata('branch_id'); ?>">
+
 												<?php
 												}
 												?>
@@ -203,11 +207,6 @@
 												</div>
 
 
-
-
-
-
-
 												<div class="row">
 
 													<div id="main_wp_case_no" class="col-md-12" style="display:none;">
@@ -235,6 +234,24 @@
 												</div>
 
 
+												<div class="row">
+
+													<div id="sentence" class="col-md-12" style="display:none;">
+														<div class="form-group">
+															<label id="case_no" class="control-label col-md-3">Sentence</label>
+															<div class="col-md-6">
+																<select class="form-control" name="mainYear">
+																	<option value="">--Select--</option>
+																	<option value="Death Sentence">Death Sentence</option>
+																	<option value="Life Sentence">Life Sentence</option>
+																	<option value="Short Sentence">Short Sentence</option>
+
+																</select>
+															</div>
+														</div>
+													</div>
+
+												</div>
 
 												<div class="row">
 													<div class="col-md-12">
@@ -470,10 +487,18 @@ foreach ($getCases as $case_info) { ?>
 			} else {
 				document.getElementById("case_no").innerHTML = "case no";
 			}
-			if (sel.value == 4) {
-				document.getElementById("main_wp_case_no").style.display = 'none';
-			} else {
+			if (sel.value == 1 || sel.value == 2 || sel.value == 3) {
 				document.getElementById("main_wp_case_no").style.display = 'block';
+			} else {
+
+				// var branch = document.getElementById("branch_id").value;
+				// alert($branch);
+				document.getElementById("main_wp_case_no").style.display = 'none';
+			}
+			if (sel.value == 19) {
+				document.getElementById("sentence").style.display = 'block';
+			} else {
+				document.getElementById("sentence").style.display = 'none';
 			}
 
 		}

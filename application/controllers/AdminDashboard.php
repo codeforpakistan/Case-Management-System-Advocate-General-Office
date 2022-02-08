@@ -598,16 +598,58 @@ class AdminDashboard extends CI_Controller
 		$branch_id = $this->session->userdata('branch_id');
 		$branch = $this->General_model->getSelectedData('branch', $branch_id);
 		$data['branch'] = $branch;
-
-
-
-		$data['getCases'] = $this->General_model->get_allCases();
+		
+		
+		
+		$this->db->select('*');
+		$this->db->from('manage_cases');
+		//$this->db->where('certificate_issue_status',0);
+		$getCountRecords = $this->db->count_all_results();
+		$data['getCountRecords'] = $getCountRecords;
+		
+		$this->load->library("pagination");
+		$config["base_url"] = base_url() . "AdminDashboard/list_case";
+		$config["total_rows"] = $getCountRecords;
+		$config["per_page"] = 50;
+		$config["uri_segment"] = 3;
+		
+		$config['full_tag_open'] = '<ul class="pagination">';
+		$config['full_tag_close'] = '</ul>';
+		$config['attributes'] = ['class' => 'page-link'];
+		$config['first_tag_open'] = '<li class="page-item">';
+		$config['first_tag_close'] = '</li>';
+		$config['prev_link'] = '&laquo';
+		$config['prev_tag_open'] = '<li class="page-item">';
+		$config['prev_tag_close'] = '</li>';
+		$config['next_link'] = '&raquo';
+		$config['next_tag_open'] = '<li class="page-item">';
+		$config['next_tag_close'] = '</li>';
+		$config['last_tag_open'] = '<li class="page-item">';
+		$config['last_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="page-item active"><a href="#" class="page-link">';
+		$config['cur_tag_close'] = '<span class="sr-only">(current)</span></a></li>';
+		$config['num_tag_open'] = '<li class="page-item">';
+		$config['num_tag_close'] = '</li>';
+		
+		$this->pagination->initialize($config);
+		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$data["links"] = $this->pagination->create_links();
+		$data['getCases'] = $this->General_model->fetch_subscribers($config["per_page"], $page);
+		
+		//$data['getCases'] = $this->General_model->get_allCases();
 
 		$data['page'] = 'AdminDashboard/list_case';
 		$this->load->view('AdminDashboard/includes/header');
 		$this->load->view('AdminDashboard/includes/template_view', $data);
 		$this->load->view('AdminDashboard/includes/footer');
 	}
+
+
+
+
+
+
+
 
 	public function add_hearing()
 	{
@@ -710,7 +752,7 @@ class AdminDashboard extends CI_Controller
 
 
 		$this->session->set_flashdata('success', 'Record Added Successfully..!');
-		redirect(site_url() . 'AdminDashboard/case_view/' . $caseid);
+		redirect(site_url() . 'AdminDashboard/case_view/'.$caseid."/hearing");
 
 		//$data['page']='AdminDashboard/add_documents';
 		//$this->load->view('AdminDashboard/includes/header');
@@ -1053,7 +1095,7 @@ class AdminDashboard extends CI_Controller
 		$this->General_model->add_data($tblname, $formArray);
 
 		$this->session->set_flashdata('success', 'Record Added Successfully..!');
-		redirect(site_url() . 'AdminDashboard/case_view/' . $caseid);
+		redirect(site_url() . 'AdminDashboard/case_view/'.$caseid."/docs");
 
 		//$data['page']='AdminDashboard/add_documents';
 		//$this->load->view('AdminDashboard/includes/header');

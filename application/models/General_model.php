@@ -364,4 +364,71 @@ class General_model extends CI_Model
 		$query = $this->db->get('manage_cases');
 		return $query->result();
 	}
+	
+	
+	
+	
+	
+	public function fetch_subscribers($limit,$start) {
+	
+	
+	/*return $this->db->select('*,beneficiaries_info.id as user_id')
+	->from('beneficiaries_info')
+	->join('district', 'district.id = beneficiaries_info.district_id')
+	->where('district.id', $district_id)
+	->where('beneficiaries_info.role_type', "pwd")
+	->where('beneficiaries_info.certificate_issue_status',"0")
+	->limit($limit, $start)
+	->order_by('beneficiaries_info.id',"DESC")->get()->result();*/
+	
+		$role_type = $this->session->userdata('role');
+		$branch_id = $this->session->userdata('branch_id');
+		$user_id = $this->session->userdata('id');
+
+		if (($role_type == 1) && ($branch_id == 0)) {
+			$this->db->select('*,manage_cases.title AS case_title, court.title AS court_title,branch.title AS branch_title, manage_cases.id AS case_id,case_categories.title AS category_title');
+			$this->db->join('case_categories', 'case_categories.id = manage_cases.case_cateid');
+			$this->db->join('court', 'court.id = manage_cases.court_id');
+			$this->db->join('branch', 'branch.id = manage_cases.branch_id');
+			$this->db->order_by('manage_cases.id', "DESC");
+			$this->db->limit($limit, $start);
+			$query = $this->db->get('manage_cases');
+			return $query->result();
+		} else {
+			$this->db->select('*,manage_cases.title AS case_title, court.title AS court_title,branch.title AS branch_title, manage_cases.id AS case_id,case_categories.title AS category_title');
+			$this->db->join('case_categories', 'case_categories.id = manage_cases.case_cateid');
+			$this->db->join('court', 'court.id = manage_cases.court_id');
+			$this->db->join('branch', 'branch.id = manage_cases.branch_id');
+
+			$this->db->where('manage_cases.branch_id', $branch_id);
+
+			//$this->db->where('manage_cases.role_type', $role_type);
+			//$this->db->where('manage_cases.added_by', $user_id);
+
+			$this->db->order_by('manage_cases.id', "DESC");
+			$this->db->limit($limit, $start);
+			$query = $this->db->get('manage_cases');
+			return $query->result();
+
+			//echo $this->db->last_query();	
+
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
