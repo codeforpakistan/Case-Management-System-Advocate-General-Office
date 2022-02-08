@@ -200,6 +200,24 @@
 													</div>
 												</div>
 
+												<div class="row">
+
+													<div id="sentence" class="col-md-12" style="display:none;">
+														<div class="form-group">
+															<label id="case_no" class="control-label col-md-3">Sentence</label>
+															<div class="col-md-6">
+																<select class="form-control" name="mainYear">
+																	<option value="">--Select--</option>
+																	<option value="Death Sentence">Death Sentence</option>
+																	<option value="Life Sentence">Life Sentence</option>
+																	<option value="Short Sentence">Short Sentence</option>
+
+																</select>
+															</div>
+														</div>
+													</div>
+
+												</div>
 
 
 												<div class="row">
@@ -511,11 +529,20 @@ foreach ($getCases as $case_info) { ?>
 			} else {
 				document.getElementById("case_no").innerHTML = "case no";
 			}
-			if (sel.value == 4) {
-				document.getElementById("main_wp_case_no").style.display = 'none';
-			} else {
+			if (sel.value == 1 || sel.value == 2 || sel.value == 3) {
 				document.getElementById("main_wp_case_no").style.display = 'block';
+			} else {
+
+				// var branch = document.getElementById("branch_id").value;
+				// alert($branch);
+				document.getElementById("main_wp_case_no").style.display = 'none';
 			}
+			if (sel.value == 19) {
+				document.getElementById("sentence").style.display = 'block';
+			} else {
+				document.getElementById("sentence").style.display = 'none';
+			}
+
 
 		}
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 17, 2022 at 07:37 AM
+-- Generation Time: Feb 08, 2022 at 06:26 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
 
@@ -33,7 +33,7 @@ CREATE TABLE `branch` (
   `description` varchar(500) NOT NULL,
   `status` int(11) NOT NULL,
   `add_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `branch`
@@ -43,8 +43,7 @@ INSERT INTO `branch` (`id`, `title`, `description`, `status`, `add_date`) VALUES
 (1, 'Bail Branch', '', 1, '2021-12-20'),
 (2, 'CR Appeal', '', 1, '2021-12-20'),
 (3, 'Supreme Court', '', 1, '2021-12-20'),
-(4, 'Writ Petition Branch', '', 1, '2021-12-21'),
-(12, 'CR Appeal', 'sd', 1, '2022-01-11');
+(4, 'Writ Petition Branch', '', 1, '2022-01-20');
 
 -- --------------------------------------------------------
 
@@ -59,7 +58,7 @@ CREATE TABLE `case_categories` (
   `description` varchar(500) NOT NULL,
   `status` int(11) NOT NULL,
   `add_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `case_categories`
@@ -69,7 +68,14 @@ INSERT INTO `case_categories` (`id`, `title`, `branch_id`, `description`, `statu
 (1, 'Application 12(2) Case', 4, ' eee', 1, '2021-12-21'),
 (2, 'COC Case', 4, ' 55', 1, '2021-12-20'),
 (3, 'Review Case', 4, '', 1, '2021-12-20'),
-(4, 'WP Case', 4, '44', 1, '2021-12-20');
+(4, 'WP Case', 4, '44', 1, '2021-12-20'),
+(18, 'CMs case', 3, '', 1, '2022-01-21'),
+(19, 'Cr Appeal', 2, 'This categories deals with ar appeals', 1, '2022-02-03'),
+(20, 'Cr revision', 2, 'This categories deals with Cr revisions', 1, '2022-02-03'),
+(21, 'Bail Application', 1, '', 1, '2022-02-03'),
+(22, 'Bail Cancellation Application', 1, '', 1, '2022-02-03'),
+(23, 'Quashment Petition', 1, '', 1, '2022-02-03'),
+(24, 'Transfer application', 1, '', 1, '2022-02-03');
 
 -- --------------------------------------------------------
 
@@ -82,35 +88,16 @@ CREATE TABLE `case_department` (
   `case_id` int(11) NOT NULL,
   `department_id` int(11) NOT NULL,
   `department_name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `case_department`
 --
 
 INSERT INTO `case_department` (`id`, `case_id`, `department_id`, `department_name`) VALUES
-(1, 10, 5, 'Halal Food Authority'),
-(2, 0, 5, 'Halal Food Authority'),
-(4, 1, 2, 'Sports Department'),
-(5, 1, 1, 'Home Department'),
-(6, 1, 5, 'Halal Food Authority'),
-(7, 1, 2, 'Sports Department'),
-(15, 2, 2, 'Peshawar Session Court '),
-(16, 2, 1, 'Home Department'),
-(17, 3, 2, 'Peshawar Session Court '),
-(18, 3, 1, 'Home Department'),
-(19, 4, 5, 'Halal Food Authority'),
-(20, 5, 6, 'Halal Food Authority  eee'),
-(21, 5, 5, 'Halal Food Authority'),
-(22, 7, 6, 'Halal Food Authority  eee'),
-(23, 7, 2, 'Peshawar Session Court '),
-(24, 8, 6, 'Halal Food Authority  eee'),
-(25, 8, 5, 'Halal Food Authority'),
-(26, 9, 5, 'Halal Food Authority'),
-(27, 9, 1, 'Home Department'),
-(28, 10, 5, 'Halal Food Authority'),
-(29, 10, 1, 'Home Department'),
-(35, 11, 2, 'Peshawar Session Court ');
+(34, 13, 5, 'Administration Department'),
+(35, 14, 4, 'KPIT Board'),
+(36, 14, 3, 'Halal Food Authority');
 
 -- --------------------------------------------------------
 
@@ -130,7 +117,7 @@ CREATE TABLE `case_log` (
   `comments` varchar(100) NOT NULL,
   `cms/rejoinder` varchar(100) NOT NULL,
   `judgment` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -144,7 +131,7 @@ CREATE TABLE `court` (
   `description` varchar(255) NOT NULL,
   `add_date` date NOT NULL,
   `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `court`
@@ -152,8 +139,8 @@ CREATE TABLE `court` (
 
 INSERT INTO `court` (`id`, `title`, `description`, `add_date`, `status`) VALUES
 (1, 'Peshawar High Court', '', '2021-12-20', 1),
-(2, 'Peshawar Session Court ', '', '2021-12-20', 1),
-(3, 'Civil', 'civil', '2022-01-11', 1);
+(2, 'Supreme Court Of Pakistan', '', '2021-12-20', 1),
+(3, 'Federal Shariah Court', '', '2022-01-20', 1);
 
 -- --------------------------------------------------------
 
@@ -167,7 +154,7 @@ CREATE TABLE `decision_types` (
   `description` varchar(500) NOT NULL,
   `status` int(11) NOT NULL,
   `add_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `decision_types`
@@ -191,7 +178,7 @@ CREATE TABLE `department` (
   `description` varchar(250) NOT NULL,
   `add_date` date NOT NULL,
   `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `department`
@@ -200,9 +187,10 @@ CREATE TABLE `department` (
 INSERT INTO `department` (`id`, `title`, `description`, `add_date`, `status`) VALUES
 (1, 'Home Department', 'some descritpion is here', '2021-11-29', 1),
 (2, 'Peshawar Session Court ', '', '2021-11-29', 1),
-(5, 'Halal Food Authority', '', '2021-12-20', 1),
-(6, 'Halal Food Authority  eee', '', '2022-01-04', 1),
-(7, 'Excise Department', 'Excise ', '2022-01-11', 1);
+(3, 'Halal Food Authority', '', '2021-12-20', 1),
+(4, 'KPIT Board', '', '2022-01-20', 1),
+(5, 'Administration Department', '', '2022-01-20', 1),
+(6, 'Health Department', '', '2022-01-20', 1);
 
 -- --------------------------------------------------------
 
@@ -217,31 +205,15 @@ CREATE TABLE `hearing_lawofficers` (
   `law_officer_id` int(11) NOT NULL,
   `officer_name` varchar(255) NOT NULL,
   `add_date` date NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `hearing_lawofficers`
 --
 
 INSERT INTO `hearing_lawofficers` (`id`, `case_id`, `hearing_id`, `law_officer_id`, `officer_name`, `add_date`) VALUES
-(16, 5, 6, 7, 'Junaid Ullah', '2021-12-29'),
-(15, 5, 6, 9, 'Jameel Khan', '2021-12-29'),
-(14, 5, 11, 7, 'Junaid Ullah', '2021-12-28'),
-(13, 5, 11, 9, 'Jameel Khan', '2021-12-28'),
-(17, 11, 10, 9, 'Jameel Khan', '2021-12-29'),
-(18, 11, 10, 7, 'Junaid Ullah', '2021-12-29'),
-(29, 2, 27, 7, 'Junaid Ullah', '2022-01-06'),
-(20, 1, 15, 9, 'Jameel Khan', '2021-12-29'),
-(21, 1, 15, 7, 'Junaid Ullah', '2021-12-29'),
-(22, 2, 18, 7, 'Junaid Ullah', '2022-01-06'),
-(23, 2, 19, 7, 'Junaid Ullah', '2022-01-06'),
-(24, 2, 21, 7, 'Junaid Ullah', '2022-01-06'),
-(25, 2, 22, 7, 'Junaid Ullah', '2022-01-06'),
-(26, 2, 23, 7, 'Junaid Ullah', '2022-01-06'),
-(28, 2, 14, 7, 'Junaid Ullah', '2022-01-06'),
-(31, 5, 31, 7, 'Junaid Ullah', '2022-01-07'),
-(32, 9, 35, 7, 'Junaid Ullah', '2022-01-10'),
-(33, 9, 36, 7, 'Junaid Ullah', '2022-01-10');
+(37, 13, 48, 17, 'Aitzaz Ahsan', '2022-01-20'),
+(38, 13, 50, 17, 'Aitzaz Ahsan', '2022-01-31');
 
 -- --------------------------------------------------------
 
@@ -272,24 +244,15 @@ CREATE TABLE `manage_cases` (
   `add_date` date NOT NULL,
   `added_by` int(11) NOT NULL,
   `role_type` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `manage_cases`
 --
 
 INSERT INTO `manage_cases` (`id`, `title`, `stateorgovt`, `states`, `case_no`, `petitioner_advocate`, `department_id`, `case_cateid`, `court_id`, `focalperson`, `respondent`, `advocate_respondent`, `branch_id`, `Filling_date`, `year`, `government_petitioner`, `status`, `decision_status`, `linked_case_id`, `add_date`, `added_by`, `role_type`) VALUES
-(1, 'Azmat Private Ltd', 'Government', '', '3221', 'amir khan', 0, 3, 2, 'nazim khan', 'wali khan', 'abbas khan', 1, '2021-12-29', 2021, 'Yes', 1, 1, 0, '2021-12-29', 17, '1'),
-(2, 'Durshal Code for Pakistan 33', 'Government', '', '342 333', 'amir khan 33', 0, 4, 2, 'nazim khan 33', 'wali khan 33', 'abbas khan 33', 1, '2021-12-29', 2022, 'Yes', 1, 0, 2, '2021-12-29', 17, '1'),
-(3, 'salman', 'Government', '', '28743521', 'Saleem Khan', 0, 4, 1, 'Iqtidar', 'Kaleem', 'Adv SanaUllh', 4, '2022-01-06', 2022, 'Yes', 1, 1, 2, '2022-01-06', 1, '1'),
-(4, 'rehan', 'State', '', '28743521', 'Saleem Khan', 0, 4, 1, 'Iqtidar', 'Kaleem', 'Adv SanaUllh', 2, '2022-01-06', 2022, 'Yes', 1, 0, 2, '2022-01-06', 11, '3'),
-(5, 'sohail', 'Government', '', '223', 'amir khan', 0, 4, 2, 'nazim khan', 'wali khan', 'abbas khan', 4, '2022-01-07', 2022, 'Yes', 1, 1, 0, '2022-01-07', 1, '1'),
-(6, 'dsdfdsf', 'Government', '', '342', '', 0, 4, 2, '', '', '', 4, '2022-01-10', 2021, 'No', 1, 0, 0, '2022-01-10', 1, '1'),
-(7, 'Sohail khan', 'Government', '', '3221', 'hamza khan', 0, 4, 2, 'nazim khan', 'wali khan', 'abbas khan', 4, '2022-01-10', 2021, 'No', 1, 0, 0, '2022-01-10', 1, '1'),
-(8, 'saleeem case ', 'Government', '', '32233', 'amir khan', 0, 4, 1, 'nazim khan', 'wali khan', 'abbas khan', 4, '2022-01-10', 2020, 'No', 1, 0, 0, '2022-01-10', 12, '3'),
-(9, 'salmee case 22', 'State', '', '2322', 'amir khan', 0, 3, 2, 'nazim khan', 'wali khan', 'abbas khan', 4, '2022-01-10', 2021, 'Yes', 1, 1, 8, '2022-01-10', 12, '3'),
-(10, 'sj', 'Government', '', '56', 'sitar khan', 0, 4, 2, 'Iqtidar', 'Kaleem', 'khan', 4, '2022-01-11', 2021, 'No', 1, 0, 0, '2022-01-11', 1, '1'),
-(11, 'saleem', 'State', '', '123', 'sitar khan', 0, 2, 3, 'Iqtidar', 'Kaleem', 'khan', 4, '2022-01-11', 2022, 'No', 1, 0, 10, '2022-01-11', 1, '1');
+(13, 'Rukhsar', 'Government', '', '342', 'Adv. Sattar khan', 0, 4, 1, 'nazim khan', 'Ahmad Khan', 'Barister Masood', 4, '2022-01-20', 2022, 'Yes', 1, 1, 0, '2022-01-20', 15, '1'),
+(14, 'Ayyan', 'Government', '', '1234', 'Zalan', 0, 4, 2, 'Furqan', 'Hamid,Rizwan', 'Junaid  Khan', 4, '2019-06-25', 2019, 'No', 1, 1, 0, '2022-01-31', 15, '1');
 
 -- --------------------------------------------------------
 
@@ -312,32 +275,23 @@ CREATE TABLE `manage_cases_docs` (
   `remarks` text NOT NULL,
   `status` int(11) NOT NULL,
   `add_date` date NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `manage_cases_docs`
 --
 
 INSERT INTO `manage_cases_docs` (`id`, `case_id`, `docstype`, `docsname`, `docs_filename`, `docsext`, `hearing_date`, `next_hearing_date`, `case_decision`, `decision_date`, `docs_date`, `remarks`, `status`, `add_date`) VALUES
-(15, 1, 'hearing_documents', 'Order Sheet', '2112292025900111.jpeg', 'jpeg', '2021-12-29', '2021-12-29', '', '0000-00-00', '2021-12-29', 'some text is here for testing', 1, '2021-12-29'),
-(12, 1, 'decision_documents', 'Judgment', '2112291013458111.jpeg', 'jpeg', '0000-00-00', '0000-00-00', 'Disposed Case', '2021-12-29', '0000-00-00', 'some text is here for testing', 1, '2021-12-29'),
-(27, 2, 'hearing_documents', 'Order Sheet', '2201064040051AG_Logo.jpg', 'jpg', '2022-01-06', '2022-01-15', '', '0000-00-00', '2022-01-06', 'The case will be heared on next date.', 1, '2022-01-06'),
-(13, 1, 'case_documents', 'Comments / Reply', '2112292020300222.jpg', 'jpg', '0000-00-00', '0000-00-00', '', '0000-00-00', '2021-12-29', '', 1, '2021-12-29'),
-(25, 3, 'decision_documents', 'Judgment', '2201064043357myPic.jpeg', 'jpeg', '0000-00-00', '0000-00-00', 'Sine-Die', '2021-01-06', '0000-00-00', 'The case has been solved. 656666', 1, '2022-01-06'),
-(28, 3, 'hearing_documents', 'Order Sheet', '2201064042156AG_Logo.jpg', 'jpg', '2022-01-06', '2022-01-06', '', '0000-00-00', '2022-01-06', 'The case has been solved. 5555', 1, '2022-01-06'),
-(29, 5, 'case_documents', 'CMs/Rejoinder', '22010710103159111.jpeg', 'jpeg', '0000-00-00', '0000-00-00', '', '0000-00-00', '2022-01-07', '', 1, '2022-01-07'),
-(30, 5, 'case_documents', 'Comments / Reply', '22010711113600222.jpg', 'jpg', '0000-00-00', '0000-00-00', '', '0000-00-00', '2022-01-07', '', 1, '2022-01-07'),
-(31, 5, 'hearing_documents', 'Order Sheet', '22010711111801222.jpg', 'jpg', '2022-01-07', '2022-01-07', '', '0000-00-00', '2022-01-07', 'hgjhgj', 1, '2022-01-07'),
-(32, 5, 'decision_documents', 'Judgment', '22010711111102222.jpg', 'jpg', '0000-00-00', '0000-00-00', 'Disposed Case ', '2022-01-07', '0000-00-00', 'tewtdsfdsf', 1, '2022-01-07'),
-(33, 9, 'case_documents', 'Judgement', '2201101013644111.jpeg', 'jpeg', '0000-00-00', '0000-00-00', '', '0000-00-00', '2022-01-10', '', 1, '2022-01-10'),
-(34, 9, 'case_documents', 'Comments / Reply', '2201101014844222.jpg', 'jpg', '0000-00-00', '0000-00-00', '', '0000-00-00', '2022-01-10', '', 1, '2022-01-10'),
-(35, 9, 'hearing_documents', 'Order Sheet', '2201101011845222.jpg', 'jpg', '2022-01-10', '2022-01-10', '', '0000-00-00', '2022-01-10', 'tewtdsfdsf', 1, '2022-01-10'),
-(36, 9, 'hearing_documents', 'Order Sheet', '2201101013745222.jpg', 'jpg', '2022-01-10', '2022-01-10', '', '0000-00-00', '2022-01-10', 'tewtdsfd3333', 1, '2022-01-10'),
-(37, 9, 'decision_documents', 'Judgment', '2201101015645111.jpeg', 'jpeg', '0000-00-00', '0000-00-00', 'Disposed Case ', '2022-01-10', '0000-00-00', 'tewtdsfdsf', 1, '2022-01-10'),
-(38, 2, 'case_documents', 'Judgement', 'case_management (1).sql', 'sql', '0000-00-00', '0000-00-00', '', '0000-00-00', '2022-01-11', '', 1, '2022-01-11'),
-(39, 2, 'case_documents', 'Order Sheet', '22011110100753AG_Logo.jpg', 'jpg', '0000-00-00', '0000-00-00', '', '0000-00-00', '2022-01-11', '', 1, '2022-01-11'),
-(40, 10, 'case_documents', 'Order Sheet', '22011112124414myPic.jpeg', 'jpeg', '0000-00-00', '0000-00-00', '', '0000-00-00', '2022-01-11', '', 1, '2022-01-11'),
-(41, 10, 'case_documents', 'Judgement', '22011112125916Experience.pdf', 'pdf', '0000-00-00', '0000-00-00', '', '0000-00-00', '2022-01-11', '', 1, '2022-01-11');
+(47, 13, 'case_documents', 'Comments / Reply', '2201205055208comments.pdf', 'pdf', '0000-00-00', '0000-00-00', '', '0000-00-00', '2022-01-20', '', 1, '2022-01-20'),
+(48, 13, 'hearing_documents', 'Order Sheet', '2201205053909order_sheet.pdf', 'pdf', '2022-01-20', '2022-01-31', '', '0000-00-00', '2022-01-20', 'First hearing of the case was canceled', 1, '2022-01-20'),
+(49, 13, 'decision_documents', 'Judgment', '2201244042029Cnic.pdf', 'pdf', '0000-00-00', '0000-00-00', 'Disposed Case ', '2022-01-24', '0000-00-00', 'The case has been disposed.', 1, '2022-01-24'),
+(50, 13, 'hearing_documents', 'Order Sheet', '22013111115227', '', '2022-01-31', '0000-00-00', '', '0000-00-00', '2022-01-31', 'The case has been solved.', 1, '2022-01-31'),
+(51, 13, 'case_documents', 'Other Documents', '2201311111493030921-ETEA-MS-PhD-TEst-Result.pdf', 'pdf', '0000-00-00', '0000-00-00', '', '0000-00-00', '2021-01-31', '', 1, '2022-01-31'),
+(52, 14, 'decision_documents', 'Judgment', '2201311111144230921-ETEA-MS-PhD-TEst-Result.pdf', 'pdf', '0000-00-00', '0000-00-00', 'Sine-Die', '2022-01-31', '0000-00-00', 'This is Edited Hearing', 1, '2022-01-31'),
+(53, 14, 'case_documents', 'CMs/Rejoinder', '22013111114353Kppsc_Lecturer_slip.pdf', 'pdf', '0000-00-00', '0000-00-00', '', '0000-00-00', '2022-01-31', '', 1, '2022-01-31'),
+(54, 14, 'case_documents', 'WP File', '22013111112358Oil_Gas_fee_slip.pdf', 'pdf', '0000-00-00', '0000-00-00', '', '0000-00-00', '2022-01-31', '', 1, '2022-01-31'),
+(55, 14, 'case_documents', 'WP File', '22013112123600Kppsc_Lecturer_slip.pdf', 'pdf', '0000-00-00', '0000-00-00', '', '0000-00-00', '2022-01-31', '', 1, '2022-01-31'),
+(56, 14, 'case_documents', 'WP File', '22013112121803Domicile.pdf', 'pdf', '0000-00-00', '0000-00-00', '', '0000-00-00', '2022-01-31', '', 1, '2022-01-31');
 
 -- --------------------------------------------------------
 
@@ -353,7 +307,7 @@ CREATE TABLE `manage_linked_cases` (
   `status` int(11) NOT NULL,
   `added_by` int(11) NOT NULL,
   `role_type` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `manage_linked_cases`
@@ -373,7 +327,7 @@ INSERT INTO `manage_linked_cases` (`id`, `coc_case_id`, `previous_case_id`, `add
 CREATE TABLE `role` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `role`
@@ -400,23 +354,18 @@ CREATE TABLE `users` (
   `password` varchar(500) NOT NULL,
   `status` int(11) NOT NULL,
   `add_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `branch_id`, `role_id`, `password`, `status`, `add_date`) VALUES
-(1, 'Khan Wali', 'khan@gmail.com', 0, 1, '21232f297a57a5a743894a0e4a801fc3', 1, '2021-11-01'),
-(2, 'Syed Zakria', 'syedzakria899@gmail.com', 1, 2, '827ccb0eea8a706c4c34a16891f84e7b', 1, '2021-11-29'),
-(5, 'Zabi Ullah', 'zabiullahkhan@gmail.com', 2, 3, '827ccb0eea8a706c4c34a16891f84e7b', 1, '2021-12-07'),
-(7, 'Junaid Ullah', 'junaidullah@gmail.com', 3, 4, '827ccb0eea8a706c4c34a16891f84e7b', 1, '2021-12-20'),
-(8, 'Shahrum', 'Shahrum@gmail.com', 4, 3, '21232f297a57a5a743894a0e4a801fc3', 1, '2021-12-21'),
-(9, 'Jameel Khan 22', 'jameelkhan22@gmail.com', 4, 2, 'd41d8cd98f00b204e9800998ecf8427e', 1, '2021-12-28'),
-(10, 'Rukhsar Ali', 'staff@gmail.com', 1, 3, 'd41d8cd98f00b204e9800998ecf8427e', 1, '2021-12-29'),
-(11, 'Jameel', 'jameel@gmail.com', 2, 3, '21232f297a57a5a743894a0e4a801fc3', 1, '2022-01-06'),
-(12, 'Saleem ullah', 'saleem@gmail.com', 4, 3, '827ccb0eea8a706c4c34a16891f84e7b', 1, '2022-01-07'),
-(13, 'Nazim', 'nazim@gmail.com', 4, 3, 'e2fc714c4727ee9395f324cd2e7f331f', 1, '2022-01-11');
+(15, 'Super Admin', 'superadmin@gmail.com', 0, 1, '25d55ad283aa400af464c76d713c07ad', 1, '2022-01-20'),
+(16, 'IT Staff WP', 'itstaffwp@gmail.com', 4, 3, '25d55ad283aa400af464c76d713c07ad', 1, '2022-01-20'),
+(17, 'Aitzaz Ahsan', 'lawofficerwp@gmail.com', 4, 4, '25d55ad283aa400af464c76d713c07ad', 1, '2022-01-20'),
+(25, 'Salman', 'itstaffbb@gmail.com', 1, 3, '25d55ad283aa400af464c76d713c07ad', 1, '2022-02-04'),
+(26, 'CR Branch', 'itstaffcrappeal@gmail.com', 2, 3, '25d55ad283aa400af464c76d713c07ad', 1, '2022-02-08');
 
 --
 -- Indexes for dumped tables
@@ -432,19 +381,23 @@ ALTER TABLE `branch`
 -- Indexes for table `case_categories`
 --
 ALTER TABLE `case_categories`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `branch_id` (`branch_id`);
 
 --
 -- Indexes for table `case_department`
 --
 ALTER TABLE `case_department`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `department_id` (`department_id`),
+  ADD KEY `case_id` (`case_id`);
 
 --
 -- Indexes for table `case_log`
 --
 ALTER TABLE `case_log`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `case_id` (`case_id`);
 
 --
 -- Indexes for table `court`
@@ -474,13 +427,15 @@ ALTER TABLE `hearing_lawofficers`
 -- Indexes for table `manage_cases`
 --
 ALTER TABLE `manage_cases`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `case_cateid` (`case_cateid`);
 
 --
 -- Indexes for table `manage_cases_docs`
 --
 ALTER TABLE `manage_cases_docs`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Foriegn Key` (`case_id`);
 
 --
 -- Indexes for table `manage_linked_cases`
@@ -514,13 +469,13 @@ ALTER TABLE `branch`
 -- AUTO_INCREMENT for table `case_categories`
 --
 ALTER TABLE `case_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `case_department`
 --
 ALTER TABLE `case_department`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `case_log`
@@ -544,25 +499,25 @@ ALTER TABLE `decision_types`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `hearing_lawofficers`
 --
 ALTER TABLE `hearing_lawofficers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `manage_cases`
 --
 ALTER TABLE `manage_cases`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `manage_cases_docs`
 --
 ALTER TABLE `manage_cases_docs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `manage_linked_cases`
@@ -580,7 +535,42 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `case_categories`
+--
+ALTER TABLE `case_categories`
+  ADD CONSTRAINT `case_categories_ibfk_1` FOREIGN KEY (`branch_id`) REFERENCES `branch` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `case_department`
+--
+ALTER TABLE `case_department`
+  ADD CONSTRAINT `case_department_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `case_department_ibfk_2` FOREIGN KEY (`case_id`) REFERENCES `manage_cases` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `case_log`
+--
+ALTER TABLE `case_log`
+  ADD CONSTRAINT `case_log_ibfk_1` FOREIGN KEY (`case_id`) REFERENCES `manage_cases` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `manage_cases`
+--
+ALTER TABLE `manage_cases`
+  ADD CONSTRAINT `manage_cases_ibfk_1` FOREIGN KEY (`case_cateid`) REFERENCES `case_categories` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `manage_cases_docs`
+--
+ALTER TABLE `manage_cases_docs`
+  ADD CONSTRAINT `Foriegn Key` FOREIGN KEY (`case_id`) REFERENCES `manage_cases` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
