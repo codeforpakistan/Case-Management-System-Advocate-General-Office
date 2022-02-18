@@ -31,6 +31,11 @@ if ($this->session->userdata('role') == 1 * 1) {
             <li>
                 <a class="w3-bar-item w3-button" href="<?php echo base_url(); ?>AdminDashboard/list_case">Case</a>
             </li>
+            
+             <li>
+                <a class="w3-bar-item w3-button" href="<?php echo base_url(); ?>AdminDashboard/list_docs_cats">Add Docs Category</a>
+            </li>
+            
         </ul>
 
     </div>

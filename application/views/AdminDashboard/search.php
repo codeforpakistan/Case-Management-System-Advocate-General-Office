@@ -166,6 +166,31 @@
                                                     <!--/span-->
                                                 </div>
 
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fir No</label>
+                                                            <div class="col-md-9">
+                                                                <select class="form-control" name="fir_no">
+                                                                    <option value="">---Select---</option>
+                                                                    <option value="">234</option>
+                                                                    <option value="">123123</option>
+                                                                    <option value="">123123</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/span-->
+                                                    <div class="col-md-6">
+                                                        <div class="form-group ">
+                                                            <label class="control-label col-md-3">FIR Date</label>
+                                                            <div class="col-md-9">
+                                                                <input type="date" class="form-control" placeholder="" name="fir_date">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/span-->
+                                                </div>
 
                                                 <div class="row">
 

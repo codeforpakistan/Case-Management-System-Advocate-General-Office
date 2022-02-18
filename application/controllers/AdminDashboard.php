@@ -147,6 +147,13 @@ class AdminDashboard extends CI_Controller
 
 
 
+
+
+
+
+
+
+
 	////////////////////////////////// --- Add Departments -----////////////////////////
 
 
@@ -545,13 +552,13 @@ class AdminDashboard extends CI_Controller
 
 
 		$mainWp_case_no = $this->input->post("mainWp_case_no");
-		$mainYear = $this->input->post("mainYear");
+		$mainYear = $this->input->post("main_case_year");
 
 		if (!empty($mainWp_case_no) && !empty($mainYear)) {
 			$this->db->select("*");
 			$this->db->from("manage_cases");
 			$this->db->where("case_no", $this->input->post("mainWp_case_no"));
-			$this->db->where("year", $this->input->post("mainYear"));
+			$this->db->where("year", $this->input->post("main_case_year"));
 			$query = $this->db->get();
 			$user = $query->row();
 			$linked_case_id = $user->id;
@@ -598,21 +605,21 @@ class AdminDashboard extends CI_Controller
 		$branch_id = $this->session->userdata('branch_id');
 		$branch = $this->General_model->getSelectedData('branch', $branch_id);
 		$data['branch'] = $branch;
-		
-		
-		
+
+
+
 		$this->db->select('*');
 		$this->db->from('manage_cases');
 		//$this->db->where('certificate_issue_status',0);
 		$getCountRecords = $this->db->count_all_results();
 		$data['getCountRecords'] = $getCountRecords;
-		
+
 		$this->load->library("pagination");
 		$config["base_url"] = base_url() . "AdminDashboard/list_case";
 		$config["total_rows"] = $getCountRecords;
 		$config["per_page"] = 50;
 		$config["uri_segment"] = 3;
-		
+
 		$config['full_tag_open'] = '<ul class="pagination">';
 		$config['full_tag_close'] = '</ul>';
 		$config['attributes'] = ['class' => 'page-link'];
@@ -630,12 +637,12 @@ class AdminDashboard extends CI_Controller
 		$config['cur_tag_close'] = '<span class="sr-only">(current)</span></a></li>';
 		$config['num_tag_open'] = '<li class="page-item">';
 		$config['num_tag_close'] = '</li>';
-		
+
 		$this->pagination->initialize($config);
 		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 		$data["links"] = $this->pagination->create_links();
 		$data['getCases'] = $this->General_model->fetch_subscribers($config["per_page"], $page);
-		
+
 		//$data['getCases'] = $this->General_model->get_allCases();
 
 		$data['page'] = 'AdminDashboard/list_case';
@@ -752,7 +759,7 @@ class AdminDashboard extends CI_Controller
 
 
 		$this->session->set_flashdata('success', 'Record Added Successfully..!');
-		redirect(site_url() . 'AdminDashboard/case_view/'.$caseid."/hearing");
+		redirect(site_url() . 'AdminDashboard/case_view/' . $caseid . "/hearing");
 
 		//$data['page']='AdminDashboard/add_documents';
 		//$this->load->view('AdminDashboard/includes/header');
@@ -824,6 +831,9 @@ class AdminDashboard extends CI_Controller
 	public function case_view()
 	{
 
+		$role_type = $this->session->userdata('role');
+		$branch_id = $this->session->userdata('branch_id');
+
 		$data['role_name'] = $this->General_model->GetRoleName();
 		$branch_id = $this->session->userdata('branch_id');
 		$branch = $this->General_model->getSelectedData('branch', $branch_id);
@@ -858,7 +868,13 @@ class AdminDashboard extends CI_Controller
 		$docstype = "decision_documents";
 		$data['decision_info'] = $this->General_model->getCaseDecision($caseid, $docstype);
 
-
+		if (($role_type == 1) && ($branch_id == 0)) {
+			$documents_type = "documents_type";
+			$data['getDocsTypes'] = $this->General_model->getDocsTypesAll($documents_type);
+		} else {
+			$documents_type = "documents_type";
+			$data['getDocsTypes'] = $this->General_model->getDocsTypes($documents_type, $branch_id);
+		}
 
 		$data['page'] = 'AdminDashboard/case_view';
 		$this->load->view('AdminDashboard/includes/header');
@@ -1095,7 +1111,7 @@ class AdminDashboard extends CI_Controller
 		$this->General_model->add_data($tblname, $formArray);
 
 		$this->session->set_flashdata('success', 'Record Added Successfully..!');
-		redirect(site_url() . 'AdminDashboard/case_view/'.$caseid."/docs");
+		redirect(site_url() . 'AdminDashboard/case_view/' . $caseid . "/docs");
 
 		//$data['page']='AdminDashboard/add_documents';
 		//$this->load->view('AdminDashboard/includes/header');
@@ -1103,7 +1119,7 @@ class AdminDashboard extends CI_Controller
 		//$this->load->view('AdminDashboard/includes/footer');
 	}
 
-// asdfadsf
+	// asdfadsf
 
 
 
@@ -1454,6 +1470,10 @@ class AdminDashboard extends CI_Controller
 	}
 
 
+
+
+
+
 	public function update_case_categories()
 	{
 		$data['role_name'] = $this->General_model->GetRoleName();
@@ -1801,5 +1821,140 @@ class AdminDashboard extends CI_Controller
 			$output .= '<option value="' . $row->id . '">' . $row->title . '</option>';
 		}
 		echo $output;
+	}
+
+
+
+
+	public function add_docs_cat()
+	{
+
+		$data['role_name'] = $this->General_model->GetRoleName();
+		if ($this->session->userdata('role') == 1 * 1) {
+			$tblname = "branch";
+			$data['branches'] = $this->General_model->get_alldata($tblname);
+
+			$data['page'] = 'AdminDashboard/add_docs_cat';
+			$this->load->view('AdminDashboard/includes/header');
+			$this->load->view('AdminDashboard/includes/template_view', $data);
+			$this->load->view('AdminDashboard/includes/footer');
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
+	}
+
+
+
+
+	public function submit_documents_types()
+	{
+		$data['role_name'] = $this->General_model->GetRoleName();
+		if ($this->session->userdata('role') == 1 * 1) {
+			$formArray = array();
+
+			$formArray['title'] = $this->input->post("title");
+			$formArray['description'] = $this->input->post("description");
+			$formArray['branch_id'] = $this->input->post("branch_id");
+
+			$formArray['add_date'] = date("Y-m-d");
+			$formArray['status'] = 1;
+			$tblname = "documents_type";
+			$this->General_model->add_data($tblname, $formArray);
+			$this->session->set_flashdata('success', 'Record Added Successfully..!');
+			redirect(base_url('AdminDashboard/list_docs_cats'));
+			exit;
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
+	}
+
+
+
+	public function list_docs_cats()
+	{
+		$data['role_name'] = $this->General_model->GetRoleName();
+		if ($this->session->userdata('role') == 1 * 1) {
+			$tblname = "documents_type";
+			$data['list_documents_type'] = $this->General_model->get_docs_types();
+			$data['page'] = 'AdminDashboard/list_docs_cats';
+			$this->load->view('AdminDashboard/includes/header');
+			$this->load->view('AdminDashboard/includes/template_view', $data);
+			$this->load->view('AdminDashboard/includes/footer');
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
+	}
+
+
+
+
+
+
+	public function deleteDocs()
+	{
+
+		$data['role_name'] = $this->General_model->GetRoleName();
+		if ($this->session->userdata('role') == 1 * 1) {
+			$recordid = $this->uri->segment(3);
+			$tblname = "documents_type";
+			$this->General_model->delete_data($tblname, $recordid);
+			$this->session->set_flashdata('success', 'Record Deleted Successfully..!');
+			redirect(base_url('AdminDashboard/list_docs_cats'));
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
+	}
+
+
+
+	public function edit_docs_types()
+	{
+		$data['role_name'] = $this->General_model->GetRoleName();
+		if ($this->session->userdata('role') == 1 * 1) {
+
+			$tblname = "branch";
+			$data['branches'] = $this->General_model->get_alldata($tblname);
+			$data['role_name'] = $this->General_model->GetRoleName();
+			$tblnames = "documents_type";
+			$recordid = $this->uri->segment(3);
+			$data['getCasecategory'] = $this->General_model->getSelectedData($tblnames, $recordid);
+			$data['page'] = 'AdminDashboard/edit_docs_types';
+			$this->load->view('AdminDashboard/includes/header');
+			$this->load->view('AdminDashboard/includes/template_view', $data);
+			$this->load->view('AdminDashboard/includes/footer');
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
+	}
+
+
+
+
+
+	public function update_docstypes()
+	{
+		$data['role_name'] = $this->General_model->GetRoleName();
+		if ($this->session->userdata('role') == 1 * 1) {
+			$data['role_name'] = $this->General_model->GetRoleName();
+			$tblname = "documents_type";
+			$formArray = array();
+
+			$casecatid = $this->input->post("casecatid");
+			$formArray['branch_id'] = $this->input->post("branch_id");
+			$formArray['title'] = $this->input->post("title");
+			$formArray['description']  = $this->input->post("description");
+
+			$this->General_model->update_data($tblname, $formArray, $casecatid);
+			$this->session->set_flashdata('success', "Record Updated Successfully.");
+			redirect(base_url('AdminDashboard/list_docs_cats'));
+		} else {
+			$this->session->set_flashdata('error', "<span class='text-danger'>Invalid access!</span>");
+			return redirect('AdminDashboard/index');
+		}
 	}
 }

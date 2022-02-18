@@ -225,6 +225,33 @@ class General_model extends CI_Model
 		$query = $this->db->get($tblname);
 		return $query->result();
 	}
+	
+	
+	
+	public function getDocsTypes($tblname, $fieldvalue)
+	{
+		$this->db->select("*");
+		$this->db->where("branch_id", $fieldvalue);
+		$this->db->order_by('id', "ASC");
+		$query = $this->db->get($tblname);
+		return $query->result();
+	}
+	
+	
+	public function getDocsTypesAll($tblname)
+	{
+		$this->db->select("*");
+		//$this->db->where("branch_id", $fieldvalue);
+		$this->db->order_by('id', "ASC");
+		$this->db->group_by("title");
+		$query = $this->db->get($tblname);
+		return $query->result();
+	}
+	
+	
+	
+	
+	
 
 	public function GetRoleName()
 	{
@@ -311,6 +338,19 @@ class General_model extends CI_Model
 		$query = $this->db->get("case_categories");
 		return $query->result();
 	}
+	
+	
+	public function get_docs_types()
+	{
+		$this->db->select("documents_type.*,branch.title as branch_title");
+		$this->db->join('branch', 'branch.id = documents_type.branch_id');
+		$this->db->order_by('documents_type.id', "DESC");
+		$query = $this->db->get("documents_type");
+		return $query->result();
+	}
+	
+	
+	
 
 	public function search_cases($data)
 	{

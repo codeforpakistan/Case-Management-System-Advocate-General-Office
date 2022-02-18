@@ -127,7 +127,9 @@
 													<?php } ?>
 													<script>
 														window.onload = function select_cat1() {
+
 															var branch_id = "<?= $this->session->userdata('branch_id') ?>";
+															show_fields(branch_id);
 															if (branch_id != '') {
 																$.ajax({
 																	url: "<?php echo base_url(); ?>AdminDashboard/fetch_caseCategories",
@@ -211,14 +213,14 @@
 
 													<div id="main_wp_case_no" class="col-md-12" style="display:none;">
 														<div class="form-group">
-															<label class="control-label col-md-3">WP Case no</label>
+															<label id="linked_case_label" class="control-label col-md-3">WP Case no</label>
 															<div class="col-md-3">
 																<input type="text" class="form-control" name="mainWp_case_no" placeholder="">
 															</div>
 
-															<label id="case_no" class="control-label col-md-1">Year</label>
+															<label class="control-label col-md-1">Year</label>
 															<div class="col-md-2">
-																<select class="form-control" name="mainYear">
+																<select class="form-control" name="main_case_year">
 																	<?php
 																	$year = date("Y");
 																	for ($i = $year; $i >= 1995; $i--) {
@@ -302,18 +304,61 @@
 												<!-- /Row -->
 
 												<!-- /Row -->
-												<div class="row">
+												<div class="row" id="distt_police" style="display:none;">
 													<div class="col-md-12">
 														<div class="form-group">
-															<label class="control-label col-md-3">Advocate For Petitioner</label>
-															<div class="col-md-6">
+															<label class="control-label col-md-3">District</label>
+															<div class="col-md-2">
 																<input type="text" class="form-control" name="petitioner_advocate" placeholder="">
+																<!-- <span class="help-block"> This is inline help </span>  -->
+															</div>
+
+															<label class="control-label col-md-1">Police Station</label>
+															<div class="col-md-3">
+																<input type="text" class="form-control" name="police_station" placeholder="">
 																<!-- <span class="help-block"> This is inline help </span>  -->
 															</div>
 														</div>
 													</div>
-													<!--/span-->
 												</div>
+												<div class="row" id="fir_date" style="display:none;">
+													<div class="col-md-12">
+														<div class="form-group">
+															<label class="control-label col-md-3">FIR no</label>
+															<div class="col-md-2">
+																<input type="text" class="form-control" name="fir_no" placeholder="">
+																<!-- <span class="help-block"> This is inline help </span>  -->
+															</div>
+
+															<label class="control-label col-md-1">Fir Date</label>
+															<div class="col-md-3">
+																<input type="date" class="form-control" name="fir_date" value="<?php echo date("Y-m-d"); ?>" placeholder="">
+
+															</div>
+
+														</div>
+													</div>
+												</div>
+
+
+
+												<div>
+													<!-- /Row -->
+
+													<div class="row">
+														<div class="col-md-12">
+															<div class="form-group">
+																<label class="control-label col-md-3">Advocate For Petitioner</label>
+																<div class="col-md-6">
+																	<input type="text" class="form-control" name="petitioner_advocate" placeholder="">
+																	<!-- <span class="help-block"> This is inline help </span>  -->
+																</div>
+															</div>
+														</div>
+														<!--/span-->
+													</div>
+												</div>
+
 
 
 
@@ -353,7 +398,7 @@
 
 												<!-- /Row -->
 												<div class="row">
-													<div class="col-md-12">
+													<div class="col-md-12" id="department_div" style="display:block">
 														<div class="form-group">
 															<label class="control-label col-md-3">Department</label>
 															<div class="col-md-6">
@@ -482,12 +527,21 @@ foreach ($getCases as $case_info) { ?>
 	<script>
 		function change_label(sel) {
 			if (sel.value != "") {
+				var branch_id = $("#branch_id").val();
+				if (branch_id == 4) {
+					document.getElementById("linked_case_label").innerHTML = "wp case no";
+				} else if (branch_id == 2) {
+					document.getElementById("linked_case_label").innerHTML = "CRA case no";
+				} else if (branch_id == 1) {
+					document.getElementById("linked_case_label").innerHTML = "BA case no";
+				}
+
 				var category_name = sel.options[sel.selectedIndex].text;
 				document.getElementById("case_no").innerHTML = category_name + " no";
 			} else {
 				document.getElementById("case_no").innerHTML = "case no";
 			}
-			if (sel.value == 1 || sel.value == 2 || sel.value == 3) {
+			if (sel.value == 1 || sel.value == 2 || sel.value == 3 || sel.value == 27 || sel.value == 28 || sel.value == 29 || sel.value == 30 || sel.value == 24) {
 				document.getElementById("main_wp_case_no").style.display = 'block';
 			} else {
 
@@ -511,9 +565,9 @@ foreach ($getCases as $case_info) { ?>
 
 
 		function get_categories(branch_id) {
-
+			// show_fields(branch_id);
 			var branch_id = $("#branch_id").val();
-
+			show_fields(branch_id);
 			if (branch_id != '') {
 				$.ajax({
 					url: "<?php echo base_url(); ?>AdminDashboard/fetch_caseCategories",
@@ -532,5 +586,19 @@ foreach ($getCases as $case_info) { ?>
 			} else {
 				$("#userstatus").text('Please Select.');
 			}
+		}
+
+		function show_fields(branch_id) {
+			// var branch_id = $("#branch_id").val();
+			if (branch_id == 1) {
+				document.getElementById("distt_police").style.display = 'block';
+				document.getElementById("fir_date").style.display = 'block';
+				document.getElementById("department_div").style.display = 'none';
+			} else {
+				document.getElementById("distt_police").style.display = 'none';
+				document.getElementById("fir_date").style.display = 'none';
+				document.getElementById("department_div").style.display = 'block';
+			}
+
 		}
 	</script>
